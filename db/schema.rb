@@ -10,7 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170524205827) do
+ActiveRecord::Schema.define(version: 20170525182122) do
+
+  create_table "libraries", force: :cascade do |t|
+    t.string "name"
+    t.integer "floor_count"
+    t.integer "floor_area"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "library_users", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "library_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["library_id"], name: "index_library_users_on_library_id"
+    t.index ["user_id"], name: "index_library_users_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email"
