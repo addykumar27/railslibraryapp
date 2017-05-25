@@ -11,5 +11,6 @@ Rails.application.routes.draw do #rails will list our routes.get '/' to get user
   post'/libraries', to: 'libraries#create'
   get '/libraries/:id', to: 'libraries#show', as: 'library'
   get '/users/:user_id/libraries', to: 'library_users#index', as: 'user_libraries'
+  post '/libraries/:library_id/users', to: 'library_users#create', as: 'library_users'
 
 end
