@@ -7,20 +7,33 @@ class UsersController < ApplicationController
 	end
 
 	def new
-	@user = User.new
+		@user = User.new
 	end
 
 	def create
-	@user = User.create(user_params)
-	login(@user) # <-- log the user in
-    redirect_to @user
+		@user = User.create(user_params)
+		login(@user) # <-- log the user in
+    	redirect_to @user
+   		if @user
+      		login(@user)
+      		flash[:notice] = "Successfully logged in."     
+    	else
+      		flash[:error] = "Incorrect email or password."  # <--- Add this flash error
+      		redirect_to login_path
+      	end
+    end
     
-	end
 
 	def show
-    @user = User.find_by_id(params[:id])
-    @current_user = @user
- 		redirect_to '/login'
+		require_login
+    	@user = User.find_by_id(params[:id])
+ 		if @user
+      		login(@user)
+      		flash[:notice] = "Successfully logged in."      
+      	else
+      		flash[:error] = "Incorrect email or password."  
+      		redirect_to login_path
+      end
   	end
 
 
