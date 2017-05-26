@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+
+	before_action :require_login, only: [:show]
+
 	def index
 		@users = User.all
 	end
@@ -16,6 +19,8 @@ class UsersController < ApplicationController
 
 	def show
     @user = User.find_by_id(params[:id])
+    @current_user = @user
+ 		redirect_to '/login'
   	end
 
 
